@@ -1,6 +1,28 @@
 (function (Firebase) {
   'use strict';
 
+  function getId()
+  {
+      var sPageURL = window.location.search.substring(1);
+      var sURLVariables = sPageURL.split('&');
+      var sParameterName = sURLVariables[0].split('=');
+      return sParameterName[0] 
+  }  
+  function generateId() {
+      return Math.random().toString(36).replace(/[^a-z]+/g, '');
+  }
+
+  Firebase.init = function() {
+      var s = 'Project: '
+      var id = getId();
+      if (!id) {
+        id = generateId();
+      }
+      $("h1").text(s+id);
+  }
+
+
+
   // SETUP
 
   // 1. connect to firebase db

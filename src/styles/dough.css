@@ -1,0 +1,6 @@
+.dough-splash, .dough-new, .dough {
+  display:none;
+}
+.loading .dough-splash {
+  display: block;
+}

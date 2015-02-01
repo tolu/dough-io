@@ -8,3 +8,8 @@ Url based bills can be collaboratively updated and changed by any and all that h
 * nologin
 * nobackend
 * firebase
+
+### Links
+* [jspm](http://jspm.io/)
+* [aurelia guide](http://aurelia.io/get-started.html)
+* [firebase guide](https://www.firebase.com/docs/web/guide/)

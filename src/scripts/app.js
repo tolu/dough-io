@@ -38,7 +38,7 @@
   // 3.1.2 Remove person
 
   // 3.2 Add cost
-  
+
   // 3.2.1 Edit cost
 
   // 3.2.2 Remove cost

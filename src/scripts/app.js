@@ -1,27 +1,121 @@
 (function (Firebase) {
   'use strict';
 
+  var db,
+      id,
+      doughDB,
+      members,
+      expenses,
+      firebaseBasePath = 'https://resplendent-torch-2867.firebaseio.com/';
+
   function getId()
   {
       var sPageURL = window.location.search.substring(1);
       var sURLVariables = sPageURL.split('&');
       var sParameterName = sURLVariables[0].split('=');
-      return sParameterName[0] 
-  }  
-  function generateId() {
-      return Math.random().toString(36).replace(/[^a-z]+/g, '');
+      return sParameterName[0] || generateId();
   }
 
-    var projectDatabase = new Firebase('https://resplendent-torch-2867.firebaseio.com//'+id);
-    var s = 'Project: '
-    var id = getId();
-    if (!id) {
-      id = generateId();
-    }
-    $("h1").text(s+id);
+  function generateId() {
+      // for local testing return "test"
+      if(/localhost/.test(location.href)){
+        return "test";
+      }
 
-    // Application is now loaded!
-    $('body').removeClass('loading');
+      var id = Math.random().toString(36).replace(/[^a-z]+/g, '');
+      history.replaceState(null, null, '?'+id);
+      return id;
+  }
+
+  function loadInitialData(){
+    console.log('load initial data');
+    doughDB = db.child(id);
+
+    doughDB.once('value', function (snap) {
+      // Application is now loaded!
+      $('body').removeClass('loading');
+      var data = snap.val();
+      console.log('application loaded', data);
+
+      if(!data){
+        // add entry via update()
+        var tmpObject = {};
+        tmpObject[id] = { members: "", expenses: ""};
+        db.update(tmpObject, function (error) {
+          doughDB = db.child(id);
+        });
+      }
+      setUpListeners();
+    });
+  }
+
+  function onAddMember() {
+    var name = $('.new-member-name').val();
+    doughDB.child('members').push({name: name});
+    $('.new-member-name').val('');
+  }
+  function onRemoveMember( e ) {
+    var _id = e.target.id;
+    var el = $('#'+_id);
+    el.remove();
+    members.child(_id).remove();
+  }
+
+  function onAddExpense() {
+    var name = $('.new-expense-name').val();
+    var amount = $('.new-expense-amount').val();
+    doughDB.child('expenses').push({name: name, value: amount});
+    $('.new-expense-name').val('');
+    $('.new-expense-amount').val('');
+  }
+  function onRemoveExpense( e ) {
+    var _id = e.target.id;
+    var el = $('#'+_id);
+    el.remove();
+    expenses.child(_id).remove();
+  }
+
+  // connect to firebase
+  id = getId();
+  db = new Firebase(firebaseBasePath);
+  $('.dough-splash h2').text('Loading Project: ' + id);
+  $('h1').text('Project: ' + id);
+
+  loadInitialData();
+
+  function setUpListeners() {
+    // refereces
+    members = doughDB.child('members');
+    expenses = doughDB.child('expenses');
+
+    // element listeners
+    $('.members button').on('click', onAddMember);
+    $('.members').on('click', 'li', onRemoveMember);
+
+    $('.expenses button').on('click', onAddExpense);
+    $('.expenses').on('click', 'li', onRemoveExpense);
+
+
+    // data listeners
+    expenses.on('child_added', function (snap) {
+      var data = snap.val();
+      var key = snap.key();
+      $('.expenses ul').append('<li id="'+key+'">'+data.name + ' : ' + data.value + '</li>');
+    });
+    expenses.on('child_removed', function (snap) {
+      var key = snap.key();
+      onRemoveExpense({target:{id:key}});
+    });
+
+    members.on('child_added', function (snap) {
+      var key = snap.key();
+      $('.members ul').append('<li id="'+key+'">'+snap.val().name+'</li>');
+    });
+    members.on('child_removed', function (snap) {
+      var key = snap.key();
+      onRemoveMember({target:{id:key}});
+    });
+  }
 
 
   // SETUP

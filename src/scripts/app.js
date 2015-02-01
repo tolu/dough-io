@@ -12,15 +12,16 @@
       return Math.random().toString(36).replace(/[^a-z]+/g, '');
   }
 
-  Firebase.init = function() {
-      var s = 'Project: '
-      var id = getId();
-      if (!id) {
-        id = generateId();
-      }
-      $("h1").text(s+id);
-  }
+    var projectDatabase = new Firebase('https://resplendent-torch-2867.firebaseio.com//'+id);
+    var s = 'Project: '
+    var id = getId();
+    if (!id) {
+      id = generateId();
+    }
+    $("h1").text(s+id);
 
+    // Application is now loaded!
+    $('body').removeClass('loading');
 
 
   // SETUP

@@ -7,12 +7,12 @@
   <!-- aurelia stuff, commented out for now -->
   <!-- <link rel="stylesheet" type="text/css" href="jspm_packages/github/twbs/bootstrap@3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="jspm_packages/npm/font-awesome@4.2.0/css/font-awesome.min.css"> -->
-	<link rel="stylesheet" href="">
+
+	<link rel="stylesheet" href="styles/dough.css">
 	<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
-    <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
   </head>
-  <body aurelia-app>
+  <body class="loading" aurelia-app>
 		<!-- aurelia scripts -->
 		<!-- <script src="jspm_packages/system.js"></script>
 		<script src="config.js"></script>
@@ -20,34 +20,20 @@
 		 	System.baseUrl = 'dist';
 		 	System.import('aurelia-bootstrapper');
 		</script> -->
-      <div id='messagesDiv'></div>
-      <hr>
-    <input type='text' id='nameInput' placeholder='Name'>
-    <input type='text' id='messageInput' placeholder='Message'>
-    <script>
-      var myDataRef = new Firebase('https://resplendent-torch-2867.firebaseio.com/');
-      $('#messageInput').keypress(function (e) {
-        if (e.keyCode == 13) {
-          var name = $('#nameInput').val();
-          var text = $('#messageInput').val();
-          myDataRef.push({name: name, text: text});
-          $('#messageInput').val('');
-        }
-      });
-      myDataRef.on('child_added', function(snapshot) {
-        var message = snapshot.val();
-        displayChatMessage(message.name, message.text);
-      });
-      function displayChatMessage(name, text) {
-        $('<div/>')
-          .text(text)
-          .prepend($('<em/>')
-          .text(name+': '))
-          .appendTo($('#messagesDiv'));
 
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-      };
-    </script>
+		<!-- dough views -->
+		<div class="dough-splash">
+			<h2>Loading DoughIO</h2>
+		</div>
+
+		<div class="new-dough">
+
+    </div>
+
+		<div class="dough">
+			<h1></h1>
+		</div>
+
 		<script src="scripts/app.js"></script>
   </body>
 </html>

@@ -103,7 +103,7 @@
     expenses.on('child_added', function (snap) {
       var data = snap.val();
       var key = snap.key();
-      $('.expenses ul').append('<li id="'+key+'">'+data.name + ' : ' + data.value + '</li>');
+      $('.expenses ul').append(strf(expenseTpl, key, data.value, data.name));
     });
     expenses.on('child_removed', function (snap) {
       var key = snap.key();
@@ -125,6 +125,11 @@
   var personTpl = ['<li id="{0}">',
                       '<span class="glyphicon glyphicon-user" aria-hidden="true">&nbsp;</span>',
                       '<span>{1}</span>',
+                    '</li>'
+                  ].join('');
+  var expenseTpl = ['<li id="{0}">',
+                      '<span class="glyphicon glyphicon-usd" aria-hidden="true">&nbsp;</span>',
+                      '<span>{1} : {2}</span>',
                     '</li>'
                   ].join('');
 

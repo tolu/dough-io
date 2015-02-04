@@ -122,7 +122,11 @@
     });
   }
 
-  var personTpl = '<li id="{0}"><span class="glyphicon glyphicon-user" aria-hidden="true">{1}</span></li>';
+  var personTpl = ['<li id="{0}">',
+                      '<span class="glyphicon glyphicon-user" aria-hidden="true">&nbsp;</span>',
+                      '<span>{1}</span>',
+                    '</li>'
+                  ].join('');
 
   function strf() {
     var args = [].slice.call(arguments, 0);

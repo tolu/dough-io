@@ -112,7 +112,9 @@
 
     members.on('child_added', function (snap) {
       var key = snap.key();
-      $('.members ul').append('<li id="'+key+'">'+snap.val().name+'</li>');
+      var value = snap.val().name;
+      console.log(value);
+      $('.members ul').append(strf(personTpl, key, value));
     });
     members.on('child_removed', function (snap) {
       var key = snap.key();
@@ -120,6 +122,19 @@
     });
   }
 
+  var personTpl = '<li id="{0}"><span class="glyphicon glyphicon-user" aria-hidden="true">{1}</span></li>';
+
+  function strf() {
+    var args = [].slice.call(arguments, 0);
+    console.log(args);
+    var tpl = args.shift();
+    var i = 0;
+    args.forEach(function(param){
+      tpl = tpl.replace('{x}'.replace('x',i), param);
+      i++;
+    });
+    return tpl.toString();
+  }
 
   // SETUP
 

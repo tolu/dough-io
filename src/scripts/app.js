@@ -49,7 +49,8 @@
     });
   }
 
-  function onAddMember() {
+  function onAddMember(evt) {
+    evt && evt.preventDefault();
     var name = $('.new-member-name').val();
     doughDB.child('members').push({name: name});
     $('.new-member-name').val('');
@@ -61,7 +62,8 @@
     members.child(_id).remove();
   }
 
-  function onAddExpense() {
+  function onAddExpense(evt) {
+    evt && evt.preventDefault();
     var name = $('.new-expense-name').val();
     var amount = $('.new-expense-amount').val();
     doughDB.child('expenses').push({name: name, value: amount});
@@ -89,12 +91,13 @@
     expenses = doughDB.child('expenses');
 
     // element listeners
-    $('.members button').on('click', onAddMember);
-    $('.members').on('click', 'li', onRemoveMember);
+    $('.members')
+      .on('submit', 'form', onAddMember)
+      .on('click', 'li', onRemoveMember);
 
-    $('.expenses button').on('click', onAddExpense);
-    $('.expenses').on('click', 'li', onRemoveExpense);
-
+    $('.expenses')
+      .on('submit', 'form',  onAddExpense)
+      .on('click', 'li', onRemoveExpense);
 
     // data listeners
     expenses.on('child_added', function (snap) {

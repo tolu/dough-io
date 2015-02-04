@@ -22,16 +22,16 @@ header strong {
 }
 
 /* simple grid */
-.g10{ width:10%; }
-.g20{ width:20%; }
-.g25{ width:25%; }
-.g33{ width:33%; }
-.g50{ width:50%; }
-.g75{ width:75%; }
-.g100{ width:100%; }
+.g10 { width:10%; }
+.g20 { width:20%; }
+.g25 { width:25%; }
+.g33 { width:33%; }
+.g50 { width:50%; }
+.g75 { width:75%; }
+.g100 { width:100%; }
 
 
-/* style / layout helpers */
+/* style | layout helpers */
 .box {
   display: flex;
   flex-wrap:wrap;
@@ -50,10 +50,13 @@ header strong {
 .loading .dough, .dough-splash {
   display:none;
 }
-
 .loading .dough-splash {
   display: block;
 }
 .expenses, .members {
   min-width: 400px;
+}
+/* list items */
+.members li {
+
 }

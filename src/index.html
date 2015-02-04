@@ -3,25 +3,102 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<link rel="stylesheet" href="">
-	<script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
-    <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>DoughIO</title>
+  <!-- aurelia stuff, commented out for now -->
+  <!-- <link rel="stylesheet" type="text/css" href="jspm_packages/github/twbs/bootstrap@3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="jspm_packages/npm/font-awesome@4.2.0/css/font-awesome.min.css"> -->
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/dough.css">
+
+	<script src="//cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </head>
-  <body>
-    <input type='text' id='nameInput' placeholder='Name'>
-    <input type='text' id='messageInput' placeholder='Message'>
-    <script>
-      var myDataRef = new Firebase('https://resplendent-torch-2867.firebaseio.com/');
-      $('#messageInput').keypress(function (e) {
-        if (e.keyCode == 13) {
-          var name = $('#nameInput').val();
-          var text = $('#messageInput').val();
-          myDataRef.set('User ' + name + ' says ' + text);
-          $('#messageInput').val('');
-        }
-      });
-    </script>
+  <body class="loading" aurelia-app>
+		<!-- aurelia scripts -->
+		<!-- <script src="jspm_packages/system.js"></script>
+		<script src="config.js"></script>
+		<script>
+		 	System.baseUrl = 'dist';
+		 	System.import('aurelia-bootstrapper');
+		</script> -->
+
+		<header>
+			<!-- Placeholder img. Usage: /size/bg-color/text-color -->
+			<img src="http://placehold.it/70/E8117F/000000&text=DoughIO" width="70px">
+			<strong>Payback's bitch reputation just went out the door</strong>
+		</header>
+
+		<div class="container-fluid">
+
+			<div class="dough-splash">
+				<h2>Loading DoughIO</h2>
+			</div>
+
+			<div class="dough box">
+				<div class="g100">
+					<h1>Dough</h1>
+					<hr>
+				</div>
+
+				<section class="expenses g50">
+					<h3>Expenses</h3>
+					<form class="g100 box">
+						<div class="g33">
+							<input class="new-expense-amount form-control tap-target" type="number" placeholder="Amount">
+						</div>
+						<div class="g33">
+							<input class="new-expense-name form-control tap-target" type="text" placeholder="Payed By">
+						</div>
+						<div class="g10">
+							<button type="submit" class="tap-target btn btn-success">Add</button>
+						</div>
+					</form>
+					<br>
+					<ul class="expense-list nostyle"></ul>
+				</section>
+
+				<section class="members g50">
+					<h3>Peeps</h3>
+					<form class="box g100">
+						<div class="box g50">
+							<input class="new-member-name form-control tap-target" type="text" placeholder="Name">
+						</div>
+						<div class="box g10">
+							<button class="tap-target btn btn-success">Add</button>
+						</div>
+					</form>
+					<br>
+				<ul class="people-list nostyle"></ul>
+				</section>
+
+				<section class="calculations g100">
+					<hr>
+					<h3>Calculations</h3>
+					<div class="box">
+					<div class="g20">
+					<div>
+						Total costs:
+					</div>
+					<div>
+						Mean per person:
+					</div>
+					<div>
+						Dough-IO Score-board:
+					</div>
+				</div>
+				<div class="g20">
+					<div>10</div>
+					<div>20</div>
+					<div>xxx</div>
+				</div>
+				</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="scripts/app.js"></script>
   </body>
 </html>

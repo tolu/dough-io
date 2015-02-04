@@ -55,7 +55,9 @@ header strong {
 }
 .expenses, .members {
     min-width: 350px;
+    flex-grow: 1;
 }
+
 /* list items */
 .members li, .expenses li {
     cursor:pointer;
